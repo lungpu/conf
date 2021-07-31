@@ -1,0 +1,15 @@
+vbell off
+hardstatus alwayslastline
+hardstatus string '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}][%{Y}%l%{g}]%{=b C}[ %m/%d %c ]%{W}'
+
+# Don't switch to the xterm alternate screen, so that scrollback works
+termcapinfo xterm*|rxvt*|kterm*|Eterm* ti@:te@
+
+# But do manage an alternate screen in the virtual terminal, so that vim
+# doesn't scribble on my carefully-maintained state
+altscreen on
+
+# Don't bother with the annoying message on startup
+startup_message off
+
+# To use ssh-agent inside screen for all terminal
