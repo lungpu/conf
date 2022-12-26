@@ -200,6 +200,11 @@
 
 (global-set-key "\M-gt" 'gtd)
 
+(defun push-gtd()
+  (interactive)
+  (call-process "pushgtd.sh"))
+(global-set-key "\C-cp" 'push-gtd)
+
 (setq org-todo-keyword-faces
       '(
 	("TODO" . (:foreground "red" :weight bold))
@@ -243,8 +248,6 @@
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
   (yas-global-mode 1))
 
-					; removing toolbars and extra stuff in gui mode emacs
-
 ; disable toolbar, menubar and scroll bars
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -274,7 +277,6 @@
 (global-set-key (kbd "S-C-M-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-M-<up>") 'enlarge-window)
 
-
 ;; Toggle between split windows and a single window
 (defun toggle-windows-split()
   "Switch back and forth between one window and whatever split of windows we might have in the frame. The idea is to maximize the current buffer, while being able to go back to the previous split of windows in the frame simply by calling this command again."
@@ -297,11 +299,9 @@
  (if (window-minibuffer-p (selected-window))
      (keyboard-escape-quit)))
 
-
-(defun only-current-buffer () 
-  (interactive)                                                                 
-    (mapc 'kill-buffer (cdr (buffer-list (current-buffer)))))
-
+;; (defun only-current-buffer () 
+;;   (interactive)                                                                 
+;;     (mapc 'kill-buffer (cdr (buffer-list (current-buffer)))))
 
 (global-set-key (kbd "C-M-g") 'goto-line)
 
@@ -319,22 +319,23 @@
 (global-set-key (kbd "C-S-s") 'swap-buffers)
 
 ; spell checking
-(with-eval-after-load "ispell"
-  ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
-  ;; dictionary' even though multiple dictionaries will be configured
-  ;; in next line.
-  (setenv "LANG" "en_US.UTF-8")
-  (setq ispell-program-name "hunspell")
-  (setq ispell-dictionary "es_AR,en_US")
-  ;; ispell-set-spellchecker-params has to be called
-  ;; before ispell-hunspell-add-multi-dic will work
-  (ispell-set-spellchecker-params)
-  (ispell-hunspell-add-multi-dic "es_AR,en_US")
-  ;; For saving words to the personal dictionary, don't infer it from
-  ;; the locale, otherwise it would save to ~/.hunspell_de_DE.
-  (setq ispell-personal-dictionary "~/.hunspell_personal"))
-
-;; The personal dictionary file has to exist, otherwise hunspell will
-;; silently not use it.
-(unless (file-exists-p ispell-personal-dictionary)
-  (write-region "" nil ispell-personal-dictionary nil 0))
+;(with-eval-after-load "ispell"
+;  ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
+;  ;; dictionary' even though multiple dictionaries will be configured
+;  ;; in next line.
+;  (setenv "LANG" "en_US.UTF-8")
+;  (setq ispell-program-name "hunspell")
+;  (setq ispell-dictionary "es_AR,en_US")
+;  ;; ispell-set-spellchecker-params has to be called
+;  ;; before ispell-hunspell-add-multi-dic will work
+;  (ispell-set-spellchecker-params)
+;  (ispell-hunspell-add-multi-dic "es_AR,en_US")
+;  ;; For saving words to the personal dictionary, don't infer it from
+;  ;; the locale, otherwise it would save to ~/.hunspell_de_DE.
+;  (setq ispell-personal-dictionary "~/.hunspell_personal")
+;  ;; The personal dictionary file has to exist, otherwise hunspell will
+;  ;; silently not use it.
+;  (unless (file-exists-p ispell-personal-dictionary)
+;    (write-region "" nil ispell-personal-dictionary nil 0))
+;)
+;
