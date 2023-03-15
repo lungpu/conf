@@ -1,8 +1,31 @@
 ;;; Gustavo's Emacs init file
 ;;;
 
-(eval-when-compile
-   (require 'use-package))
+;; Personal info and computer related
+;; Define home and work computer names
+(setq home@system '"one"
+      work@system '"manjaro")
+
+;; files and path based on which system I am on
+;; home GTD
+(when (string= system-name home@system)
+  (setq mygtdfile "~/notes/basb/msb.org")     ; GTD @home
+  )
+
+;; work GTD
+(when (string= system-name work@system)
+  (setq mygtdfile "~/notes/mygtd.org")     ; GTD @work
+  )
+
+;; other filenames I'll use later
+(setq myscratchfile "~/scratch.org")        ; scratch file in org format
+(setq mygitclonedir "~/Downloads")          ; where to run git clone on clipboard
+
+;; for Outlook -> Org sync
+(when (string= system-name work@system)
+  (setq ORGANISED_EXCHANGE_ORIGIN "~/notes/outlook/calendar.ics")
+  (setq ORGANISED_EXCHANGE_DESTINATION "~/notes/outlook/outlook.org")
+  )
 
 ;; packages block
 (require 'package)
@@ -21,42 +44,16 @@
 (setq use-package-always-ensure t)
 (package-initialize)
 
+;; ensure use-package is loaded
+(eval-when-compile
+   (require 'use-package))
+
 ;; user installed packages, request installation if they are not
 ;; (setq package-selected-packages '(lsp-mode yasnippet lsp-treemacs helm-lsp projectile hydra flycheck company avy which-key helm-xref dap-mode zenburn-theme json-mode))
 ;; (when (cl-find-if-not #'package-installed-p package-selected-packages)
 ;;   (package-refresh-contents)
 ;;   (mapc #'package-install package-selected-packages))
 (which-key-mode)
-
-;; Personal info and computer related
-;; Emacs location
-
-(setq home@system '"one"
-      work@system '"manjaro")
-
-(home@system)
-
-(work@system)
-
-;; files and path
-;; home GTD
-(when (string= system-name home@system)
-  (setq mygtdfile "~/notes/basb/msb.org")     ; GTD @home
-  )
-
-;; work GTD
-(when (string= system-name work@system)
-  (setq mygtdfile "~/notes/mygtd.org")     ; GTD @work
-  )
-
-(setq myscratchfile "~/scratch.org")        ; scratch file in org format
-(setq mygitclonedir "~/Downloads")          ; where to run git clone on clipboard
-
-;; for Outlook -> Org sync
-(when (string= system-name work@system)
-  (setq ORGANISED_EXCHANGE_ORIGIN "~/notes/outlook/calendar.ics")
-  (setq ORGANISED_EXCHANGE_DESTINATION "~/notes/outlook/outlook.org")
-  )
 
 ;; load path
 (add-to-list 'load-path "~/.local/share/icons-in-terminal/")
